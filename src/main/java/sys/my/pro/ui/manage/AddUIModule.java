@@ -15,22 +15,22 @@ import org.eclipse.jface.action.Action;
 
 import sys.my.pro.ui.UIModule;
 import sys.my.pro.ui.i.Presenter;
+import sys.my.pro.ui.user.UserAction;
 import sys.my.pro.ui.user.UserManagePersenter;
 
 /**
  * 添加模块
  * 
  */
-public class AddUIModule extends AbstractModule {
+public class AddUIModule {
 
     // 在此处对模块顺序进行调整
     public static Class<?>[] all_modules = {UserManagePersenter.class};
 
-
-    @Override
-    protected void configure() {
-	Multibinder<Presenter> modules = Multibinder.newSetBinder(binder(),
-                Presenter.class, Names.named("UIModules"));
+    
+    protected List<Action> getActions() throws ClassNotFoundException {
+//	Multibinder<Presenter> modules = Multibinder.newSetBinder(binder(),
+//                Presenter.class, Names.named("UIModules"));
 //	
 //        Multibinder<Action> moduleActions = Multibinder.newSetBinder(
 //                binder(), Action.class, Names.named("ModuleActions"));
@@ -54,23 +54,23 @@ public class AddUIModule extends AbstractModule {
 
 
 
-                modules.addBinding().to(p);
+//                modules.addBinding().to(p);
 
-                Class<? extends Action> moduleActionClass = (Class<? extends Action>) annotation
+                Class<?> moduleActionClass = (Class<? >) annotation
                         .moduleActionClass();
-                
+                Class.forName(moduleActionClass.getName());
                 
                 if (moduleActionClass != null) {
 //                    moduleActions.addBinding().to(moduleActionClass);
 //                    moduleActions.add(Action.class.cast(obj)moduleActionClass);
-                    Action a=Action.class.cast(moduleActionClass);
-                    list.add(a);
+                    UserAction u=new UserAction();
+                    list.add((Action) moduleActionClass.cast(u));
                 }
             }
         }
         ;
-        
-        this.bind(Actions.class).annotatedWith(Names.named("ModuleActions")).toInstance(new Actions(list));
+        return list;
+//        this.bind(Actions.class).annotatedWith(Names.named("ModuleActions")).toInstance(a);
 //        this.bind(ContributionManager.class).to(ContributionManagerImpl.class);
 //        this.install(new AppActionConfiguratorModule());
     }

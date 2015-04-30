@@ -12,6 +12,7 @@ import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
 import sys.my.pro.ui.UIModule;
@@ -24,6 +25,7 @@ import sys.my.pro.ui.user.UserManagePersenter;
  * @author Michael
  *
  */
+@Singleton
 public class Manage{
     @Inject
     private ExitAction exitAction;
@@ -33,14 +35,7 @@ public class Manage{
     private List<Action> moduleActions;
     
     @Inject
-    public Manage(@Named("ModuleActions") Set<Action> moduleActions){
-	this.moduleActions.addAll(moduleActions);
-	for (Action appAction : moduleActions) {
-            if (!this.moduleActions.contains(appAction)) {
-                this.moduleActions.add(appAction);
-            }
-        }
-    }
+    private AddUIModule addUIModule;
     
     public MenuManager getMenuManager() {
 	MenuManager menuBar = new MenuManager("");
@@ -77,10 +72,12 @@ public class Manage{
         UserAction u=new UserAction();
         tbmodules.add((IAction)c.cast(u));
         
-        
-//        for (Action a : this.moduleActions) {
-//            tbmodules.add((IAction) a);
-//        }
+        moduleActions=addUIModule.getActions();
+        if(moduleActions!=null){
+	    for (Action a : this.moduleActions) {
+		tbmodules.add((IAction) a);
+	    }
+        }
 
         coolBarManager.add(tbmodules);
 

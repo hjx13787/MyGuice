@@ -16,7 +16,7 @@ public class Test {
 	GuiceI g=in.getInstance(GuiceI.class);
 	g.sayHello();
 	in.getInstance(Tests.class);
-	in.createChildInjector(new AddUIModule());
+	in.getInstance(AddUIModule.class);
 	System.out.println(in.getBindings());
 	Set<Action> s=null;
 	

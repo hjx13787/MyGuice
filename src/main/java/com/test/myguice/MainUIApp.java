@@ -20,6 +20,7 @@ import com.google.inject.Injector;
 public class MainUIApp {
     
     public static void main(String[] args) {
+	final Injector injector=Guice.createInjector();
 	final Display display = Display.getDefault();
 	// run it from a realm
 	Realm.runWithDefault(SWTObservables.getRealm(display),
@@ -27,7 +28,6 @@ public class MainUIApp {
 				public void run() {
 					Shell shell = new Shell(Display.getDefault(),SWT.CLOSE | SWT.MIN);
 					shell.setLayout(null);
-					Injector injector=Guice.createInjector(new AddUIModule());
 					Manage m=injector.getInstance(Manage.class);
 					MyMainView my=new MyMainView(m);
 					my.open();
