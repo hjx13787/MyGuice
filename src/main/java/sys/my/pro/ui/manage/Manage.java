@@ -25,7 +25,6 @@ import sys.my.pro.ui.user.UserManagePersenter;
  * @author Michael
  *
  */
-@Singleton
 public class Manage{
     @Inject
     private ExitAction exitAction;

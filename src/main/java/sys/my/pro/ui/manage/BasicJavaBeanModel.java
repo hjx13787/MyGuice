@@ -1,4 +1,4 @@
-package com.test.myguice;
+package sys.my.pro.ui.manage;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -1,5 +1,7 @@
 package com.test.myguice;
 
+import sys.my.pro.ui.manage.BasicJavaBeanModel;
+
 
 public class LoginModol extends BasicJavaBeanModel {
     private String username;

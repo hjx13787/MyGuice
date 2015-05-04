@@ -37,22 +37,24 @@ import sys.my.pro.ui.manage.Manage;
 
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import com.google.inject.Inject;
+
 public class MyMainView extends ApplicationWindow {
     private static final String TAB_MODULE_ID = "__TAB_MODULE_ID__";
     public static final String MIG_LAYOUT_MAIN = "fill, insets 1";
     public static final String LOGIN_CONTAINER_LAYOUT_DATA = "width 300px!, height 150px!";
     public static final String MAIN_FOLDER_LAYOUT_DATA = "grow, hmin 0, wmin 0";
+    
     private Manage manage;
-
+    private Composite mainComposite;
+    
+    
     public MyMainView(Manage manage) {
 	super(null);
 	this.manage=manage;
 	addCoolBar(SWT.NONE);
 	addMenuBar();
 	addStatusLine();
-    }
-    public MyMainView(){
-	super(null);
     }
     /**
      * 添加菜单栏
@@ -66,7 +68,6 @@ public class MyMainView extends ApplicationWindow {
      */
     @Override
     protected CoolBarManager createCoolBarManager(int style) {
-        // TODO Auto-generated method stub
         return manage.getCoolBarManager();
     }
     /**
@@ -74,20 +75,24 @@ public class MyMainView extends ApplicationWindow {
      */
     @Override
     protected StatusLineManager createStatusLineManager() {
-        // TODO Auto-generated method stub
         return manage.getStatusLineManager();
     }
     @Override
     protected void configureShell(final Shell shell) {
     	shell.setImage(SWTResourceManager.getImage(MyMainView.class, "/sun/print/resources/duplex.png"));
-	shell.setMinimumSize(new Point(1024, 768));
+	shell.setMinimumSize(new Point(512, 384));
         super.configureShell(shell);
         shell.setData("MAIN_SHELL_DONGLU");
         shell.setText("东陆一卡通管理平台");
 
 
     }
-    
+    @Override
+    protected Control createContents(Composite parent) {
+        mainComposite=new Composite(parent, 0);
+        
+        return super.createContents(parent);
+    }
     
 
 }

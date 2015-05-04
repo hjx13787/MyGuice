@@ -27,8 +27,9 @@ public class MainUIApp {
 				public void run() {
 					Shell shell = new Shell(Display.getDefault(),SWT.CLOSE | SWT.MIN);
 					shell.setLayout(null);
-					Manage m=injector.getInstance(Manage.class);
-					MyMainView my=new MyMainView(m);
+					Manage manage=injector.getInstance(Manage.class);
+					MyMainView my=new MyMainView(manage);
+//					MyMainView my=injector.getInstance(MyMainView.class);
 					my.open();
 					
 					while (!shell.isDisposed()) {

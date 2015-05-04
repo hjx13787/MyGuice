@@ -1,14 +1,15 @@
 package sys.my.pro.ui;
 
+import com.google.inject.Inject;
+
 import sys.my.pro.ui.i.Presenter;
+import sys.my.pro.ui.splash.SplashPresenter;
 
 public class MyMainPresenter implements Presenter{
+    @Inject
     private MyMainView view;
-
-    public MyMainPresenter(MyMainView view) {
-	super();
-	this.view = view;
-    }
+    @Inject
+    private SplashPresenter sp;
 
     public void close() {
 	this.view.close();

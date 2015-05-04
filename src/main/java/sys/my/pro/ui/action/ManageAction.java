@@ -2,12 +2,12 @@ package sys.my.pro.ui.action;
 
 import org.eclipse.jface.action.Action;
 
+import com.google.inject.Inject;
+
 import sys.my.pro.ui.MyMainPresenter;
 import sys.my.pro.ui.MyMainView;
 
 public class ManageAction extends Action {
-    MyMainView myMainView=new MyMainView();
-    MyMainPresenter presenter=new MyMainPresenter(myMainView);
     public ManageAction() {
 	// TODO Auto-generated constructor stub
 	setText("系统管理");
@@ -17,6 +17,5 @@ public class ManageAction extends Action {
     @Override
     public void run() {
         System.out.println("进入系统管理");
-        presenter.show();
     }
 }
