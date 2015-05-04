@@ -32,8 +32,6 @@ public class Manage{
     @Inject
     private ManageAction manageAction;
     
-    private List<Action> moduleActions;
-    
     @Inject
     private AddUIModule addUIModule;
     
@@ -67,14 +65,14 @@ public class Manage{
         // the main module.
         ToolBarManager tbmodules = new ToolBarManager(SWT.FLAT);
         //获取注解中的数据
-        UIModule ui=UserManagePersenter.class.getAnnotation(UIModule.class);
-        Class<?> c=ui.moduleActionClass();
-        UserAction u=new UserAction();
-        tbmodules.add((IAction)c.cast(u));
+//        UIModule ui=UserManagePersenter.class.getAnnotation(UIModule.class);
+//        Class<?> c=ui.moduleActionClass();
+//        UserAction u=new UserAction();
+//        tbmodules.add((IAction)c.cast(u));
         
-        moduleActions=addUIModule.getActions();
+       List<Action> moduleActions=addUIModule.getActions();
         if(moduleActions!=null){
-	    for (Action a : this.moduleActions) {
+	    for (Action a : moduleActions) {
 		tbmodules.add((IAction) a);
 	    }
         }

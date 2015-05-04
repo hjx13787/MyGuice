@@ -28,7 +28,8 @@ public class AddUIModule {
     public static Class<?>[] all_modules = {UserManagePersenter.class};
 
     
-    protected List<Action> getActions() throws ClassNotFoundException {
+    protected List<Action> getActions() {
+	//无法注入
 //	Multibinder<Presenter> modules = Multibinder.newSetBinder(binder(),
 //                Presenter.class, Names.named("UIModules"));
 //	
@@ -41,7 +42,7 @@ public class AddUIModule {
          * 根据注解获取信息
          */
 
-        Iterable<Class<?>> annotated = Arrays.asList(all_modules);
+        List<Class<?>> annotated = Arrays.asList(all_modules);
 
         for (Class<?> class1 : annotated) {
             if (Presenter.class.isAssignableFrom(class1)) {
@@ -56,15 +57,14 @@ public class AddUIModule {
 
 //                modules.addBinding().to(p);
 
-                Class<?> moduleActionClass = (Class<? >) annotation
+                Class<Action> moduleActionClass = (Class<Action >) annotation
                         .moduleActionClass();
-                Class.forName(moduleActionClass.getName());
                 
                 if (moduleActionClass != null) {
 //                    moduleActions.addBinding().to(moduleActionClass);
 //                    moduleActions.add(Action.class.cast(obj)moduleActionClass);
-                    UserAction u=new UserAction();
-                    list.add((Action) moduleActionClass.cast(u));
+                    Action a=getAction(moduleActionClass.getName());
+                    list.add(a);
                 }
             }
         }
@@ -75,5 +75,11 @@ public class AddUIModule {
 //        this.install(new AppActionConfiguratorModule());
     }
 
-    
+    public Action getAction(String name){
+	Action a=null;
+	if(name==UserAction.class.getName()){
+	    a=new UserAction();
+	}
+	return a;
+    }
 }

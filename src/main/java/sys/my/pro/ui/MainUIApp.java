@@ -1,10 +1,9 @@
-package com.test.myguice;
+package sys.my.pro.ui;
 
 
 
 import org.eclipse.core.databinding.observable.Realm;
 
-import sys.my.pro.ui.MyMainView;
 import sys.my.pro.ui.guice.GuiceMudle;
 import sys.my.pro.ui.manage.AddUIModule;
 import sys.my.pro.ui.manage.Manage;
