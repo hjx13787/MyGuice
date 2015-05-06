@@ -5,40 +5,24 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabFolder2Adapter;
-import org.eclipse.swt.custom.CTabFolderEvent;
-import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.events.MenuDetectEvent;
-import org.eclipse.swt.events.MenuDetectListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.ShellAdapter;
-import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.ToolTip;
-import org.eclipse.swt.widgets.Tray;
-import org.eclipse.swt.widgets.TrayItem;
-
-
-
-
-
-
-import org.eclipse.swt.widgets.Widget;
 
 import sys.my.pro.ui.manage.Manage;
+import sys.my.pro.ui.splash.SplashView;
 
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.layout.GridLayout;
 
-import com.google.inject.Inject;
+import com.test.composite.TestComposite;
 
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.RowLayout;
+
+
+@SuppressWarnings("unused")
 public class MyMainView extends ApplicationWindow {
     private static final String TAB_MODULE_ID = "__TAB_MODULE_ID__";
     public static final String MIG_LAYOUT_MAIN = "fill, insets 1";
@@ -46,11 +30,12 @@ public class MyMainView extends ApplicationWindow {
     public static final String MAIN_FOLDER_LAYOUT_DATA = "grow, hmin 0, wmin 0";
     
     private Manage manage;
-    private Composite mainComposite;
+    private Composite mainContainer;
     
     
     public MyMainView(Manage manage) {
 	super(null);
+	
 	this.manage=manage;
 	addCoolBar(SWT.NONE);
 	addMenuBar();
@@ -77,22 +62,26 @@ public class MyMainView extends ApplicationWindow {
     protected StatusLineManager createStatusLineManager() {
         return manage.getStatusLineManager();
     }
-    @Override
-    protected void configureShell(final Shell shell) {
-    	shell.setImage(SWTResourceManager.getImage(MyMainView.class, "/sun/print/resources/duplex.png"));
-	shell.setMinimumSize(new Point(512, 384));
-        super.configureShell(shell);
-        shell.setData("MAIN_SHELL_DONGLU");
-        shell.setText("东陆一卡通管理平台");
-
-
-    }
+    
     @Override
     protected Control createContents(Composite parent) {
-        mainComposite=new Composite(parent, 0);
-        
-        return super.createContents(parent);
+	mainContainer = new Composite(parent, SWT.NONE);
+	RowLayout rl_mainContainer = new RowLayout(SWT.HORIZONTAL);
+	rl_mainContainer.justify = true;
+	mainContainer.setLayout(rl_mainContainer);
+	
+	Composite composite = new SplashView(mainContainer, SWT.NONE);
+	
+	
+	return mainContainer;
     }
     
-
+    public void layoutMainContainer() {
+        this.mainContainer.layout(true);
+    }
+    
+    
+    public Composite getMainContainer() {
+	return mainContainer;
+    }
 }

@@ -7,20 +7,10 @@ import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 
 public class SplashPresenter implements Presenter {
-//    @Inject
-    private SplashView view;
-//    @Inject
-    private EventBus ebus;
     
-//    @Inject
-    private SplashEvent event;
-    
-//    @Subscribe
-    public void init(){
-	view.getModel().setMessage(event.getMsg());
+    @Subscribe
+    public void listen(SplashEvent event){
+	System.out.println(event.getMsg());
     }
     
-    public SplashView getView() {
-	return view;
-    }
 }

@@ -9,33 +9,33 @@ import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.core.databinding.beans.BeanProperties;
 
 import com.google.inject.Inject;
+import org.eclipse.swt.widgets.Text;
 
 public class SplashView extends Composite {
     private DataBindingContext m_bindingContext;
-//    @Inject
+    
+    @Inject
     private SplashModel model;
-    private Label label;
+    
+    private Label lblNewLabel;
 
     public SplashView(Composite parent, int style) {
 	super(parent, style);
 	
-	label = new Label(this, SWT.NONE);
-	label.setBounds(183, 134, 61, 17);
-	label.setText("初始化");
+	lblNewLabel = new Label(this, SWT.NONE);
+	lblNewLabel.setBounds(162, 161, 61, 17);
 	m_bindingContext = initDataBindings();
     }
-    
+    public SplashModel getModel() {
+	return model;
+    }
 	protected DataBindingContext initDataBindings() {
 		DataBindingContext bindingContext = new DataBindingContext();
 		//
-		IObservableValue observeTextLabelObserveWidget = WidgetProperties.text().observe(label);
+		IObservableValue observeTextLblNewLabelObserveWidget = WidgetProperties.text().observe(lblNewLabel);
 		IObservableValue messageModelObserveValue = BeanProperties.value("message").observe(model);
-		bindingContext.bindValue(observeTextLabelObserveWidget, messageModelObserveValue, null, null);
+		bindingContext.bindValue(observeTextLblNewLabelObserveWidget, messageModelObserveValue, null, null);
 		//
 		return bindingContext;
-	}
-	
-	public SplashModel getModel() {
-	    return model;
 	}
 }
