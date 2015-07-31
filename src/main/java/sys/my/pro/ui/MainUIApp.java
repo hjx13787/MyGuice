@@ -31,10 +31,6 @@ public class MainUIApp {
 		MyMainView my = new MyMainView(manage);
 		// MyMainView my=injector.getInstance(MyMainView.class);
 		my.setBlockOnOpen(true);
-		EventBus eb = new EventBus();
-		eb.register(injector.getInstance(SplashPresenter.class));
-		SplashEvent e = new SplashEvent("test");
-		eb.post(e);
 		my.open();
 		
 		

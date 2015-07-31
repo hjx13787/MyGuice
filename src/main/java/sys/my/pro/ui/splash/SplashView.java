@@ -13,28 +13,33 @@ import org.eclipse.swt.widgets.Text;
 
 public class SplashView extends Composite {
     private DataBindingContext m_bindingContext;
-    
+
     @Inject
     private SplashModel model;
-    
+
     private Label lblNewLabel;
 
     public SplashView(Composite parent, int style) {
 	super(parent, style);
-	
+
 	lblNewLabel = new Label(this, SWT.NONE);
+	lblNewLabel.setText("初始化");
 	lblNewLabel.setBounds(162, 161, 61, 17);
 	m_bindingContext = initDataBindings();
     }
+    
     public SplashModel getModel() {
 	return model;
+    }
+    public void setModel(SplashModel model) {
+	this.model = model;
     }
 	protected DataBindingContext initDataBindings() {
 		DataBindingContext bindingContext = new DataBindingContext();
 		//
 		IObservableValue observeTextLblNewLabelObserveWidget = WidgetProperties.text().observe(lblNewLabel);
-		IObservableValue messageModelObserveValue = BeanProperties.value("message").observe(model);
-		bindingContext.bindValue(observeTextLblNewLabelObserveWidget, messageModelObserveValue, null, null);
+		IObservableValue messageGetModelObserveValue = BeanProperties.value("message").observe(getModel());
+		bindingContext.bindValue(observeTextLblNewLabelObserveWidget, messageGetModelObserveValue, null, null);
 		//
 		return bindingContext;
 	}

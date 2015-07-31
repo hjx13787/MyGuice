@@ -11,7 +11,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.core.databinding.DataBindingContext;
@@ -20,6 +22,10 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
+
+import com.test.runnable.TRun;
+
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class Login extends Dialog{
 	private DataBindingContext m_bindingContext;
@@ -30,14 +36,14 @@ public class Login extends Dialog{
     private Button button;
     private Label lblNewLabel;
     private Text text_2;
-    private LoginModol lm;
+    private LoginModol lm=new LoginModol();
+    private Text text_3;
     protected Login(Shell parentShell) {
 	super(parentShell);
 	
     }
     @Override
     protected Control createDialogArea(Composite parent) {
-	lm=new LoginModol();
 	lm.setUsername("1111");
 	lm.setMsg("请输入用户名密码");
         Composite container = (Composite) super.createDialogArea(parent);
@@ -63,7 +69,7 @@ public class Login extends Dialog{
         button_1.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                cancelPressed();
+                System.exit(0);
             }
         });
 
@@ -115,10 +121,28 @@ public class Login extends Dialog{
         text_2.setBackground(composite.getBackground());
         text_2.setBounds(46, 158, 222, 18);
         text_2.setText("1");
+        
+        text_3 = new Text(composite, SWT.NONE);
+        text_3.setEnabled(false);
+        text_3.setEditable(false);
+        text_3.setBackground(SWTResourceManager.getColor(240, 240, 240));
+        text_3.setBounds(222, 224, 222, 18);
         m_bindingContext = initDataBindings();
 
         return container;
     }
+    @Override
+    protected void configureShell(Shell newShell) {
+	super.configureShell(newShell);
+	newShell.addListener(SWT.Close, new Listener() { 
+            public void handleEvent(Event event) {
+                System.exit(0);
+            }
+
+        });
+
+    }
+    
     private void login() {
 	String name=text.getText();
 	String pwd=text_1.getText();
@@ -144,10 +168,17 @@ public class Login extends Dialog{
     
     //Dialog天生带的两个按钮不错，但我们有的时候并不想要这两个按钮,去掉它去掉,覆写这个方法，里边什么也不写
     protected void createButtonsForButtonBar(Composite parent) {
+    	m_bindingContext = initDataBindings();
     }
     
+    @Override
+    public int open() {
+        new TestRunnable(lm).run();
+        return super.open();
+    }
     
     public static void main(String[] args) {
+	
     	Display display = Display.getDefault();
     	Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {
     		public void run() {
@@ -175,6 +206,10 @@ public class Login extends Dialog{
 		IObservableValue observeTextText_2ObserveWidget = WidgetProperties.text(SWT.Modify).observe(text_2);
 		IObservableValue msgLmObserveValue = BeanProperties.value("msg").observe(lm);
 		bindingContext.bindValue(observeTextText_2ObserveWidget, msgLmObserveValue, null, null);
+		//
+		IObservableValue observeTextText_3ObserveWidget = WidgetProperties.text(SWT.Modify).observe(text_3);
+		IObservableValue timeLmObserveValue = BeanProperties.value("time").observe(lm);
+		bindingContext.bindValue(observeTextText_3ObserveWidget, timeLmObserveValue, null, null);
 		//
 		return bindingContext;
 	}

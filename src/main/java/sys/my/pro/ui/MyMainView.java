@@ -11,11 +11,15 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
 import sys.my.pro.ui.manage.Manage;
+import sys.my.pro.ui.splash.SplashEvent;
+import sys.my.pro.ui.splash.SplashPresenter;
 import sys.my.pro.ui.splash.SplashView;
 
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.layout.GridLayout;
 
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 import com.test.composite.TestComposite;
 
 import org.eclipse.swt.layout.FillLayout;
@@ -31,6 +35,8 @@ public class MyMainView extends ApplicationWindow {
     
     private Manage manage;
     private Composite mainContainer;
+    @Inject
+    private MyMainPresenter presenter;
     
     
     public MyMainView(Manage manage) {
@@ -74,6 +80,17 @@ public class MyMainView extends ApplicationWindow {
 	
 	
 	return mainContainer;
+    }
+    
+    @Override
+    protected void configureShell(Shell shell) {
+        // TODO 自动生成的方法存根
+        super.configureShell(shell);
+	EventBus eb = new EventBus();
+	eb.register(new SplashPresenter());
+	SplashEvent e = new SplashEvent("test");
+	eb.post(e);
+
     }
     
     public void layoutMainContainer() {

@@ -1,0 +1,23 @@
+package com.test.mina;
+public class UserInfo implements java.io.Serializable{
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -6290083866542500068L;
+	private String name;
+	private String QQNum;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getQQNum() {
+		return QQNum;
+	}
+	public void setQQNum(String qQNum) {
+		QQNum = qQNum;
+	}
+	
+	
+}

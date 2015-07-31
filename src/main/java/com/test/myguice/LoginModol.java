@@ -7,6 +7,7 @@ public class LoginModol extends BasicJavaBeanModel {
     private String username;
     private String pwd;
     private String msg;
+    private String time;
     
     public String getUsername() {
         return username;
@@ -28,6 +29,12 @@ public class LoginModol extends BasicJavaBeanModel {
     public void setMsg(String msg) {
 	this.msg=msg;
         pcs.firePropertyChange("msg", null,  null);
+    }
+    public String getTime() {
+        return time;
+    }
+    public void setTime(String time) {
+        pcs.firePropertyChange("time", this.time, this.time = time);
     }
     
     

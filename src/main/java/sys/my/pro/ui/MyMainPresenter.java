@@ -14,7 +14,7 @@ public class MyMainPresenter implements Presenter{
     private SplashPresenter sp;
     
     public void showSplashWindow() {
-//        view.setMainContainer(sp.getView());
+       sp.getSplashView();
         view.layoutMainContainer();
 //        view.createLoginContainer();
     }
@@ -26,6 +26,9 @@ public class MyMainPresenter implements Presenter{
 	showSplashWindow();
 	this.view.open();
 	
+    }
+    public SplashPresenter getSp() {
+	return sp;
     }
 
 }

@@ -1,0 +1,9 @@
+SCC = This is a Source Code Control file
+
+[calldll.dsp]
+SCC_Aux_Path = "\\vssserver\vssdata\"
+SCC_Project_Name = "$/701P身份证/PDRII_20080728/701P/3-软件/基线库/3-编码/IDRMisc/CallDemo/Java/calldll", CYYDAAAA
+
+[calldll.dsw]
+SCC_Aux_Path = "\\vssserver\vssdata\"
+SCC_Project_Name = "$/701P身份证/PDRII_20080728/701P/3-软件/基线库/3-编码/IDRMisc/CallDemo/Java/calldll", CYYDAAAA

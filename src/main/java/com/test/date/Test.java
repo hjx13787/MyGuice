@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.test.myguice.LoginModol;
+
 /**
  * 计时器
  * @author Michael
@@ -33,7 +35,7 @@ public class Test {
     public static void timer2() {
         Timer timer = new Timer();
         int no=1;
-        timer.schedule(new TestTimerTask(no), 1000, 1000);
+        timer.schedule(new TestTimerTask(new LoginModol()), 1000, 1000);
     }
 
     // 第三种方法：设定指定任务task在指定延迟delay后进行固定频率peroid的执行。

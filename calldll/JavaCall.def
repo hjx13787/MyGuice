@@ -1,0 +1,10 @@
+; Declares the module parameters.
+
+LIBRARY "calldll"
+
+DESCRIPTION  "ShenZhen IDIWay Inc."
+
+EXPORTS
+  Java_JavaCall_Open
+  Java_JavaCall_Close
+  Java_JavaCall_test
